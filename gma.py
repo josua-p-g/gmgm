@@ -1,22 +1,14 @@
-from random import random
+import random
 from os import system, name
 import time,sys
 odometer = 0
-
+knock = 0
 def tprint(text):
   for character in text:
     sys.stdout.write(character)
     sys.stdout.flush()
     time.sleep(0.05)
-  
-def tinput(text):
-  for character in text:
-    sys.stdout.write(character)
-    sys.stdout.flush()
-    time.sleep(0.05)
-  value = input()  
-  return value
- 
+   
 def clear():
     if name == 'nt':
         _ = system('cls')
@@ -44,78 +36,120 @@ def weapon_choice(w):
     else:
       clear()
       break
-
   options.remove(weapon_choice)
   weapon_list = [w[weapon_choice], w[options[0]]]
   return weapon_list
 
 def battle(weplst,opp):
-   user_weapon = weplst[0]
-   opp_weapon = weplst[1]
+   hit = ['attacked','walloped','clobbered','smacked','smited','dang near dismantled','acted unkindly towards']
    u_a = Player.attack + weplst[0].attack
    o_a = opp.attack + weplst[1].attack
-   u_d = Player.attack + weplst[0].defend
+   u_d = Player.defend + weplst[0].defend
    o_d = opp.defend + weplst[1].defend
-   round = [[Player.name, u_d, u_a, o_d, opp.name],[opp.name,o_d,o_a, u_d,Player.name]]
-   for i in round:
-    
-      print(i[0] , " has attacked " , i[4] , " for " , i[2] , " damage.")
-      i[3] -= i[2]
-      if i[3] <= 0:
-         print(i[4] + " has died.")
+   round = [[Player.name, u_d, u_a, o_d, opp.name,Player.attack,fist],[opp.name,o_d,o_a, u_d,Player.name,opp.attack,fist_reverse]]
+   while True:
+      for i in round:
+       clear()
+       hitpoint = int(random.randint(i[5],i[2]))
+       print(i[6])
+       print("\n",i[0] , "has", random.choice(hit) , i[4] , "for" , hitpoint , "damage.\n")
+       i[3] = i[3] - i[2]
+       
+       if i[3] <= 0:
+         time.sleep(.5)
+         tprint("\n"+ i[4] + " has died.\n")
+         time.sleep(1)
          if i[4] == Player.name:
-            input("Game Over..")
-            quit()
+           input("Game Over..")
+           quit()
          else:
-            input("Press enter to continue..")
-      
+             input("Press enter to continue..")
+         return False
          break 
-      else:
-         print(u_d, o_d)
+       else:
          input("Press enter to continue..")
          continue
    print("user health =", u_d)  
-   input()
-               
-     
-     
-   
+
+fist = """
+                                     ▌  
+ ,,                            ▄▄    ▓
+ ▀▀▀▀▀▀▀▓▓▄╦                    "█▓, ▓
+          `▀▀▀▀▀▓▓▓▓▓▄▄▄▄╦,,      '▀  
+                       `Γ"▀▀▀▀▀▓▓▓▓▄▄ 
+                                    █µ
+                                  ▐ █▌
+      `⌂⌐,                       ∩j▌█▌
+╓╗▄▄▓▓▓▓██▄▄                    j▄j▌█W
+Γ"`        ▀▓▓▄╦, ,             J█j██⌐
+             "███▀▀▀▓▓▓▓█▄, ▄─   █µ██⌐
+               `T▀▀▀█▀  `Å▀▀▀╖   ▓▌██⌐
+                    "▀█▓▄▄,,  `  ╫▌█▀ 
+                       Å███▀▀▀▓▓▓▀▀"                         
+                          "▀▀▀▀Γ     ▓
+                                ╓█Γ  █
+                              ╓▓▀    █
+                              ""     █
+"""
+
+fist_reverse = """                                       
+▌                                         
+▓▌   ╥█                                    
+▓▌  ▄█                                     
+  "▀                 ,,╓╦▄▄▄▄▄▓▓▓▓▓▓▄▄▄▄▄▄
+    ╓▓▓▓▓▓▓▓▓▓▓▓▀▀▀▀▀▀▀▀▀Γ"`             :└
+µ  .█Ü                                     
+▌  ▐█                                      
+▌  █▌   `▄                  `φ┐            
+W ▐█    .`▓ ,'              ▄▓▓▄╦,         
+ █▌     "██▓             .▓▌  ""▀▀▓▓▄▄╓   
+⌐)█    ,w▀▓█▀            ╓█▀          "▀▀▀N
+⌐▓█,,   ╓█▀        ╓▄▄▄▓▓▀`                
+  ╙▀▀▀▀██`     .▄▓▀▀└                      
+       █▌    .▄█▀                          
+▓µ     ╙█▓▄╦▄█▀                            
+█▌  ▀▓    ""┘                              
+█▌   ▀█µ                                   
+█▌    "▀                                   
+"""
+
+
 
 
 
 class Player:
     name = ''
-    attack = 10
-    defend = 20
+    attack = 25
+    defend = 25
 class Betty:
     name = 'Betty'
-    attack = 10
-    defend = 20
+    attack = 22
+    defend = 28
 class Francine:
     name = 'Francine'
-    attack = 10
-    defend = 20
+    attack = 32
+    defend = 18
 class Gerdie:
     name = 'Gerdie'
-    attack = 10
-    defend = 20
+    attack = 30
+    defend = 30
 
 class Pan:
    name = 'frying pan'
-   attack = 50
-   defend = 10
-class Walker:
-   name = 'walker'
-   attack = 10
-   defend = 10
+   attack = 52
+   defend = 17
+class BirchLog:
+   name = 'birch log center piece'
+   attack = 15
+   defend = 54
 class Cane:
    name = 'cane'
-   attack = 10
-   defend = 10
+   attack = 9
+   defend = 60
 class HotGlue:
    name = 'hot glue gun'
-   attack = 50
-   defend = 10
+   attack = 41
+   defend = 28
 
 class BiscuitBarrel:
    name = "Biscuit Barrel"
@@ -127,34 +161,42 @@ class BiscuitBarrel:
       tspace()
       print('you walk in and see Betty. Its on sight. you notice a cane in the corner, and a frying pan on a table. which do you choose?\n')
       battle(weapon_choice(weapons),opponent)
+      clear()
       print('\n\n\nSnarky comment about something..\n')
 
 class JolenesFabrics:
    name = "Jolene's Fabrics"
    def arrive():
-      weapons = {1:Walker, 2:HotGlue}
+      weapons = {1:BirchLog, 2:HotGlue}
       opponent = Francine
       clear()
       location_keys.remove(loc_choice)
       tspace()
       print('there that broad, francine, you see a woman with a walker meandering past, and a hot glue gun on the counter. do you pick one up?\n')
       battle(weapon_choice(weapons),opponent)
+      clear()
       print('\n\n\n you leave, slightly worse for the wear, and head to your LeSabre..\n')
 
-class SunnyvaleRetirement:
+class SunnyvaleRetirement():
    name = "Sunnyvale Retirement"
    def arrive():
-      if len(location_keys) ==1:
+      global knock
+      if len(location_keys) == 1:
         weapons = {}
         opponent = Gerdie
         clear()
         location_keys.clear()
         print(location_keys)
         print('boss level')
- 
+        print('')
       else:
-         clear()
-         print("\n\n\nThis place doesn't appear to be open yet. I'll try back later\n")
+         if knock == 5:
+           clear()
+           print('\n\n\n\ndang door broke, but you find a something somewhere\n\n\n')
+         else:  
+           clear()
+           print("\n\n\n\nThis place doesn't appear to be open yet. I'll try back later\n\n\n")
+           knock += 1
          
 
 location_dict = {1:BiscuitBarrel, 2:JolenesFabrics, 3:SunnyvaleRetirement}
@@ -220,10 +262,9 @@ while len(location_keys) > 0:
         print("\n\n'",loc_choice_raw , "' is not a valid choice.\n")
         continue
     else:
-        print(location_keys)
+        odometer += 1
         arena = location_dict[loc_choice]
         arena.arrive()
-        odometer += 1
         continue
 
 print('sunnnrise')
