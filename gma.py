@@ -1,8 +1,9 @@
 import random
 from os import system, name
 import time,sys
-odometer = 0
+artifact = False
 knock = 0
+odometer = 0
 def tprint(text):
   for character in text:
     sys.stdout.write(character)
@@ -17,6 +18,18 @@ def clear():
 
 def tspace():
    print('\n\n\n')
+
+def death():
+   print(eyes_closed)
+   for i in range(10):
+     sys.stdout.write("""\n                                    """)
+     sys.stdout.flush()
+     time.sleep(.5)
+   sys.stdout.write("Game Over...")
+   sys.stdout.flush()
+   time.sleep(2)
+   print('')
+   quit()
 
 
 def weapon_choice(w):
@@ -46,6 +59,10 @@ def battle(weplst,opp):
    o_a = opp.attack + weplst[1].attack
    u_d = Player.defend + weplst[0].defend
    o_d = opp.defend + weplst[1].defend
+   tspace()
+   print(Player.name, "picks up the", weplst[0].name,",", opp.name, "grabs the", weplst[1].name,'..')
+   time.sleep(1)
+   input('Press enter to begin fight...')
    round = [[Player.name, u_d, u_a, o_d, opp.name,Player.attack,fist],[opp.name,o_d,o_a, u_d,Player.name,opp.attack,fist_reverse]]
    while True:
       for i in round:
@@ -53,15 +70,16 @@ def battle(weplst,opp):
        hitpoint = int(random.randint(i[5],i[2]))
        print(i[6])
        print("\n",i[0] , "has", random.choice(hit) , i[4] , "for" , hitpoint , "damage.\n")
-       i[3] = i[3] - i[2]
+       i[3] = i[3] - hitpoint
        
        if i[3] <= 0:
          time.sleep(.5)
          tprint("\n"+ i[4] + " has died.\n")
          time.sleep(1)
          if i[4] == Player.name:
-           input("Game Over..")
-           quit()
+           time.sleep(1.5)
+           clear()
+           death()
          else:
              input("Press enter to continue..")
          return False
@@ -114,13 +132,52 @@ W ▐█    .`▓ ,'              ▄▓▓▄╦,
 """
 
 
+                                                                                                                                                                                                        
+eyes_open="""
+                  ,▄▓██████████▓▄,                                   ,▄▓██████████▓▄,         
+                ▄█▀▀"       `▀▀████▓▄                             ▄▓████▀▀:       "▀▀█▄       
+              .▀"                "▀████▄                       ▄████▀?                "▀,     
+                                    '▀███▄,                 ╓▓███▀`                     `     
+                       ,▄«4ⁿⁿ=«w▄,     `▀▀██▄             ▄██▀▀      ,▄∞«=ⁿⁿæw▄,              
+                    x^∞;~,\)┐┐' ┐,"ªw,                           ,æ^",¿  ¿┌Ç^¿*;ÅY╕           
+           '─,~.`~─▄▄▄█▓████████▓█▄ µ \,                       ,^ | ▄█▓████████▓█▄Ωå⌐',┌',-`  
+              `"~=██▀▀"  ▌ ████▀██▀██▌╒                         µ▌██▀█████'█ }  "▀▀██=^"`     
+               ^┌^Q██▄   ▌ █▀████▀ ▌ ▀█▄                      '▄█▀ $ ▀██████ █   ▄██"~─~      
+                 `⌐▄▀██▓▄ ▀▄"▀▀▀,▄▀    ▀█,                   ┌█▀    ▀▄`▀▀▀"▄▀ ▄▓██▀Σ-`        
+                    ┌`╒▀▀▀███████▄▄▓Φ~ ,▄█                   █▄, *π▓▄▄███████▀▀▀,`⌐-          
+                         A²╒▐▐▐  U~                                 '▐  ⌐⌐µµ\Y `              """
 
 
+eyes_closed = """                                                                                                                                                                                                       
+                  ╓▄▄▓██████████████▓▄▄,                     ╓▄▄▓██████████████▓▄▄,                       
+              ▄▓█▀▀▀▀▀'"'```'"'"▀▀▀▀▀████▓                τ████▀▀▀▀▀▀"'""'''"'"▀▀▀▀▀█▓▄                   
+            -▀                                                                        `▀                  
+                                                                                                          
+                     ,▄∞=ⁿ^ⁿⁿ«w▄,                                   ╓▄«=ⁿ^ⁿⁿ«w▄,                          
+                  ╓^"            '▀«╥                           ▄^▀             "V,                       
+          \      ^                   "V,                     ╓^`                   τ     ,                
+           ,~╖,                         \                  ,"                       . ,∞"                 
+            `"*ª█▓;                                                               ▄▓▀ª^"                  
+              ─⌐^▄▀█▓▄╦                 ,,                 ,,                ,▄▄█▀▀"~─                    
+                 ¬"╓^▄▀▀███▓▓▓▓▓▓▓███▀▀" ".               "└ "▀▀███▓▓▓▓▓▓▓████▀▄v;*-`                     
+                    ` :^,"Å▐ ÜÅΓ`                                `^7 µÜ┤▐ ,\ <^                           
+"""
+def death():
+   print(eyes_closed)
+   for i in range(10):
+     sys.stdout.write("""\n                                    """)
+     sys.stdout.flush()
+     time.sleep(.5)
+   sys.stdout.write("Game Over...")
+   sys.stdout.flush()
+   time.sleep(2)
+   print('')
+   quit()
 
 class Player:
     name = ''
-    attack = 25
-    defend = 25
+    attack = 2
+    defend = 2
 class Betty:
     name = 'Betty'
     attack = 22
@@ -159,7 +216,7 @@ class BiscuitBarrel:
       clear()
       location_keys.remove(loc_choice)
       tspace()
-      print('you walk in and see Betty. Its on sight. you notice a cane in the corner, and a frying pan on a table. which do you choose?\n')
+      print('you walk in and see Betty. It   input()s on sight. you notice a cane in the corner, and a frying pan on a table. which do you choose?\n')
       battle(weapon_choice(weapons),opponent)
       clear()
       print('\n\n\nSnarky comment about something..\n')
@@ -180,19 +237,24 @@ class JolenesFabrics:
 class SunnyvaleRetirement():
    name = "Sunnyvale Retirement"
    def arrive():
-      global knock
+      global knock,artifact
       if len(location_keys) == 1:
         weapons = {}
         opponent = Gerdie
         clear()
         location_keys.clear()
-        print(location_keys)
-        print('boss level')
-        print('')
+        if artifact == True:
+          print(location_keys)
+          print('secret ending (.)(.)')
+          print('')
+        else:
+           print(location_keys)
+           print('boss level')
       else:
          if knock == 5:
            clear()
            print('\n\n\n\ndang door broke, but you find a something somewhere\n\n\n')
+           artifact = True
          else:  
            clear()
            print("\n\n\n\nThis place doesn't appear to be open yet. I'll try back later\n\n\n")
@@ -218,25 +280,21 @@ print('''
           ''')
 
 Player.name = input()
-# tprint('Welcome, ' + Player.name)
-# time.sleep(1)
-# tprint(', dawn is only 3 hours away..')
-# time.sleep(.5)
-# clear()
-# time.sleep(.5)
-# tspace()
+clear()
+
+tprint('Welcome, ' + Player.name)
+time.sleep(1)
+tprint(', dawn is only 3 hours away..')
+time.sleep(.5)
+print(eyes_closed)
+time.sleep(2.5)
+clear()
+print(eyes_open)
+time.sleep(3)
 clear()
 tspace()
 
-# //////graphic of eyes opening
 
-# tprint('Welcome, ' + Player.name)
-# time.sleep(1)
-# tprint(', dawn is only 3 hours away..')
-# time.sleep(.5)
-# clear()
-# time.sleep(.5)
-# tspace()
 
 while len(location_keys) > 0:
     if odometer == 0:
