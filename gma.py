@@ -3,7 +3,7 @@ from os import system, name
 import time,sys
 artifact = False
 knock = 0
-odometer = 0
+
 def tprint(text):
   for character in text:
     sys.stdout.write(character)
@@ -30,7 +30,6 @@ def death():
    time.sleep(2)
    print('')
    quit()
-
 
 def weapon_choice(w):
   options = [i for i in w.keys()]
@@ -60,7 +59,7 @@ def battle(weplst,opp):
    u_d = Player.defend + weplst[0].defend
    o_d = opp.defend + weplst[1].defend
    tspace()
-   print(Player.name, "picks up the", weplst[0].name,",", opp.name, "grabs the", weplst[1].name,'..')
+   print(Player.name, "grabs the", weplst[0].name,",", opp.name, "picks up the", weplst[1].name,'..')
    time.sleep(1)
    input('Press enter to begin fight...')
    round = [[Player.name, u_d, u_a, o_d, opp.name,Player.attack,fist],[opp.name,o_d,o_a, u_d,Player.name,opp.attack,fist_reverse]]
@@ -82,12 +81,11 @@ def battle(weplst,opp):
            death()
          else:
              input("Press enter to continue..")
-         return False
-         break 
+             return False 
        else:
          input("Press enter to continue..")
          continue
-   print("user health =", u_d)  
+
 
 fist = """
                                      ▌  
@@ -130,9 +128,7 @@ W ▐█    .`▓ ,'              ▄▓▓▄╦,
 █▌   ▀█µ                                   
 █▌    "▀                                   
 """
-
-
-                                                                                                                                                                                                        
+                                                                                                                                                                                                   
 eyes_open="""
                   ,▄▓██████████▓▄,                                   ,▄▓██████████▓▄,         
                 ▄█▀▀"       `▀▀████▓▄                             ▄▓████▀▀:       "▀▀█▄       
@@ -146,7 +142,6 @@ eyes_open="""
                  `⌐▄▀██▓▄ ▀▄"▀▀▀,▄▀    ▀█,                   ┌█▀    ▀▄`▀▀▀"▄▀ ▄▓██▀Σ-`        
                     ┌`╒▀▀▀███████▄▄▓Φ~ ,▄█                   █▄, *π▓▄▄███████▀▀▀,`⌐-          
                          A²╒▐▐▐  U~                                 '▐  ⌐⌐µµ\Y `              """
-
 
 eyes_closed = """                                                                                                                                                                                                       
                   ╓▄▄▓██████████████▓▄▄,                     ╓▄▄▓██████████████▓▄▄,                       
@@ -162,6 +157,7 @@ eyes_closed = """
                  ¬"╓^▄▀▀███▓▓▓▓▓▓▓███▀▀" ".               "└ "▀▀███▓▓▓▓▓▓▓████▀▄v;*-`                     
                     ` :^,"Å▐ ÜÅΓ`                                `^7 µÜ┤▐ ,\ <^                           
 """
+
 def death():
    print(eyes_closed)
    for i in range(10):
@@ -176,7 +172,7 @@ def death():
 
 class Player:
     name = ''
-    attack = 2
+    attack = 99
     defend = 2
 class Betty:
     name = 'Betty'
@@ -220,7 +216,6 @@ class BiscuitBarrel:
       battle(weapon_choice(weapons),opponent)
       clear()
       print('\n\n\nSnarky comment about something..\n')
-
 class JolenesFabrics:
    name = "Jolene's Fabrics"
    def arrive():
@@ -233,9 +228,8 @@ class JolenesFabrics:
       battle(weapon_choice(weapons),opponent)
       clear()
       print('\n\n\n you leave, slightly worse for the wear, and head to your LeSabre..\n')
-
-class SunnyvaleRetirement():
-   name = "Sunnyvale Retirement"
+class BennysBingo():
+   name = "Benny's Bingo"
    def arrive():
       global knock,artifact
       if len(location_keys) == 1:
@@ -244,24 +238,55 @@ class SunnyvaleRetirement():
         clear()
         location_keys.clear()
         if artifact == True:
-          print(location_keys)
           print('secret ending (.)(.)')
-          print('')
+          print("""You walk into darkened Bingo Parlor, empty save the imposing silhouette of Gerdie at the bar.\n"""
+                """"You broke my door, I know it was you. You were looking for me" Gerdie hisses.\n"""
+                """"I was looking for you, but I found something else.." you reply as you set the\n"""
+                """contents of your pocket onto the table in front of you. Dusty rays of light filter through\n"""
+                """the blinds onto the stainless slide of a Colt Delta Elite.\n"""
+                """"That's mine, you took it!" Gerdie shrieks and starts towards you.\n"""
+                """"That's right, I took it, but I'm not done taking yet" you say as you pick up the pistol.\n""")
+          input("Press enter to continue")
+          clear()
+          print("""You level the pistol at her. She stops dead in her tracks.
+                "Give me everything...""")
         else:
            print(location_keys)
            print('boss level')
       else:
-         if knock == 5:
-           clear()
-           print('\n\n\n\ndang door broke, but you find a something somewhere\n\n\n')
-           artifact = True
+         if knock == 3:
+          clear()
+          print("WHOOPS! The dang door broke! Well, since it's already open, there's no damage\nin taking a look around. There's no one here but there's a coat hanging on the coat rack.\nYou examine the coat's pockets and find a pistol.. \n")
+          while True:
+            takegun = input("Do you take the pistol? Y/N :")
+            if takegun.lower() == "y":
+              artifact = True
+              clear()
+              print("\n\n\nYou take the pistol and slide out through the broken door back to your LeSabre\n")
+              break
+            elif takegun.lower() == "n":
+              clear()
+              print("\n\n\nYou leave the gun where it was and slide back through the broken door to your LeSabre\n")
+              break
+            else:
+              clear()
+              print("\n", takegun, " is not a valid choice.\n\n")
+              continue
+          knock += 1
+         elif knock == 4:
+            clear()
+            tprint("You pull back up to the scene of your B&E. Gerdie is standing there with the police.\n'That's her!' she cries. You're fingerprints are everywhere.\nThey draw their weapons,you close your eyes..")
+            time.sleep(1.5)
+            clear()
+            death()
+
          else:  
            clear()
            print("\n\n\n\nThis place doesn't appear to be open yet. I'll try back later\n\n\n")
            knock += 1
          
 
-location_dict = {1:BiscuitBarrel, 2:JolenesFabrics, 3:SunnyvaleRetirement}
+location_dict = {1:BiscuitBarrel, 2:JolenesFabrics, 3:BennysBingo}
 location_keys = [i for i in location_dict.keys()]
 
 clear()
@@ -270,44 +295,41 @@ print('''
       /  ____   |  |    \  /    |    /  ____   |  |    \  /    |
      |  |    |__|  |     \/     |   |  |    |__|  |     \/     |
      |  |   ____   |            |   |  |   ____   |            |
-     |  |  |_   |  |   |\  /|   |   |  |  |_   |  |   |\  /|   |
+     |  |  |__  |  |   |\  /|   |   |  |  |__  |  |   |\  /|   |
      |  |____|  |  |   | \/ |   |   |  |____|  |  |   | \/ |   |
       \_________|  |___|    |___|    \_________|  |___|    |___|
 
-                Welcome to GrandMaster Grand Ma v0.0
+                   Welcome to GrandMaster Grand Ma
 
                Please enter the name of your fighter:
           ''')
 
-Player.name = input()
-clear()
+# Player.name = input()
+# clear()
 
-tprint('Welcome, ' + Player.name)
-time.sleep(1)
-tprint(', dawn is only 3 hours away..')
-time.sleep(.5)
-print(eyes_closed)
-time.sleep(2.5)
-clear()
-print(eyes_open)
-time.sleep(3)
-clear()
-tspace()
+# tprint('Welcome, ' + Player.name)
+# time.sleep(1)
+# tprint(', dawn is only 3 hours away..')
+# time.sleep(.5)
+# print(eyes_closed)
+# time.sleep(2.2)
+# clear()
+# print('Welcome, ' + Player.name + ', dawn is only 3 hours away..')
+# print(eyes_open)
+# time.sleep(2.7)
+# clear()
+# tspace()
+# print("You've awakened in a place, there's some things, something happened, you need to do something about it.\n")
 
 
 
 while len(location_keys) > 0:
-    if odometer == 0:
-      print("you've awakened in a place, theres's some things, something happened and you need to do something about it. It's your old nemesis, whoe's her face? Gertrude or something silly. I think ihave time before my shows.")
-      print('\n')
-    else:
-       pass
     for k in location_keys:
       print(k ,  "-" , location_dict[k].name)
     if len(location_keys) > 1:
-      print("\nWhere to? Type " + ", ".join(map(str,location_keys[:-1])) + " or " + str(location_keys[-1]) + ":")
+      print("\nWhere to? Type " + ", ".join(map(str,location_keys[:-1])) + " or " + str(location_keys[-1]) + ": ")
     else:
-      print("Where to? Type " + str(location_keys[-1]) + ":")
+      print("Where to? Type " + str(location_keys[-1]) + ": ")
     loc_choice_raw = input()
     try:
         loc_choice = int(loc_choice_raw)
@@ -320,7 +342,6 @@ while len(location_keys) > 0:
         print("\n\n'",loc_choice_raw , "' is not a valid choice.\n")
         continue
     else:
-        odometer += 1
         arena = location_dict[loc_choice]
         arena.arrive()
         continue
