@@ -16,8 +16,9 @@ def clear():
     else:
         _ = system('clear')
 
-def tspace():
-   print('\n\n\n')
+def tspace(num):
+   for i in range(num):
+     print('\n')
 
 def death():
    print(eyes_closed)
@@ -41,14 +42,12 @@ def weapon_choice(w):
       weapon_choice = int(weapon_choice_raw)
     except ValueError:
       clear()
-      tspace()
-      tspace()
+      tspace(6)
       print("'",  weapon_choice_raw + "' is not a valid number, please type 1 or 2: \n\n")
       continue
     if weapon_choice not in range(1,3):
       clear()
-      tspace()
-      tspace()
+      tspace(6)
       print("'", weapon_choice_raw + "' is not a valid choice. Please type 1 or 2: \n\n")
       continue
     else:
@@ -59,13 +58,13 @@ def weapon_choice(w):
   return weapon_list
 
 def battle(weplst,opp):
-   hit = ['attacked','walloped','clobbered','smacked','smited','dang near dismantled','acted unkindly towards']
+   hit_verb = ['attacked','walloped','clobbered','smacked','smited','dang near dismantled','acted unkindly towards']
    u_a = Player.attack + weplst[0].attack
    o_a = opp.attack + weplst[1].attack
    u_d = Player.defend + weplst[0].defend
    o_d = opp.defend + weplst[1].defend
-   tspace()
-   print("\n\n\n\n", Player.name, "grabs the", weplst[0].name,",", opp.name, "picks up the", weplst[1].name,'..\n')
+   tspace(6)
+   print(Player.name, "grabs the", weplst[0].name,",", opp.name, "picks up the", weplst[1].name,'..\n')
    time.sleep(1)
    input('Press enter to begin fight...')
    round = [[Player.name, u_d, u_a, o_d, opp.name,Player.attack,fist],[opp.name,o_d,o_a, u_d,Player.name,opp.attack,fist_reverse]]
@@ -74,7 +73,7 @@ def battle(weplst,opp):
        clear()
        hitpoint = int(random.randint(i[5],i[2]))
        print(i[6])
-       print("\n\n",i[0] , "has", random.choice(hit) , i[4] , "for" , hitpoint , "damage.\n")
+       print("\n\n",i[0] , "has", random.choice(hit_verb) , i[4] , "for" , hitpoint , "damage.\n")
        i[3] = i[3] - hitpoint
        
        if i[3] <= 0:
@@ -166,7 +165,7 @@ eyes_closed = """
 
 class Player:
     name = ''
-    attack = 900
+    attack = 40
     defend = 25
 class Betty:
     name = 'Betty'
@@ -178,8 +177,8 @@ class Francine:
     defend = 18
 class Gerdie:
     name = 'Gerdie'
-    attack = 35
-    defend = 80
+    attack = 39
+    defend = 86
 
 class Pan:
    name = 'frying pan'
@@ -199,16 +198,16 @@ class HotGlue:
    defend = 28
 class DustMop:
    name = 'dust mop'
-   attack = 40
-   defend = 40
+   attack = 30
+   defend = 50
 class Bottle:
-   name = 'beer bottle'
-   attack = 40
-   defend = 40
+   name = 'whiskey bottle'
+   attack = 50
+   defend = 30
 class Artifact:
    name = 'pistol'
-   attack = 200
-   defend = 10
+   attack = 101
+   defend = 11
 
 class BiscuitBarrel:
    name = "Biscuit Barrel"
@@ -217,17 +216,19 @@ class BiscuitBarrel:
       opponent = Betty
       clear()
       location_keys.remove(loc_choice)
-      print("""\n\nYou kick open the door to the Biscuit Barrel, the smells of coffee and bacon\n"""
+      tspace(2)
+      print("""You kick open the door to the Biscuit Barrel, the smells of coffee and bacon\n"""
             """hammerfist you in the face, but the breakfast buffet won't satiate you this time.\n"""
             """Betty is seated by herself, her cane leaned against her table.\n"""
             """Her Sunrise Scrambler sits sizzling before her.\n"""
-            """Neither one of you wait for the bell.\n\n\nPlease choose your weapon:\n""")
+            """Neither one of you wait for the bell.""")
+      print("\n\n\nPlease choose your weapon:\n\n")
       battle(weapon_choice(weapons),opponent)
       clear()
       opps_down = 3 - len(location_keys)
       print("""\n\n"""
-            """"I always said Betty would do well to skip breakfast", you joke while turning\n"""
-            """the ignition to the LeSabre.""", opps_down, """down, """, len(location_keys) , """to go.\n\n\n\n\n\n\n""")
+            """"I always said Betty would do well to skip breakfast", you quip while turning\n"""
+            """the ignition to the LeSabre.""", opps_down, """down,""", len(location_keys) , """to go.\n\n\n\n\n\n\n""")
 class JolenesFabrics:
    name = "Jolene's Fabrics"
    def arrive():
@@ -235,36 +236,37 @@ class JolenesFabrics:
       opponent = Francine
       clear()
       location_keys.remove(loc_choice)
-      tspace()
-      print("""You walk into the unlocked back door to the fabric store. Francine is there\n"""
-            """preparing for her shift. "Them grandkids of yourn don't know how to act and\n"""
-            """I guess you're the one that taught em" you say as you cross the hall to the\n"""
-            """employee room. There's a nice birch log centerpiece on the table someone was\n"""
-            """hot gluing burlap to. "One of you'uns gotta tote this whoopin, guess that's\n"""
-            """gonna be you,too" """)
+      tspace(2)
+      print(""" You walk into the unlocked back door to the fabric store. Francine is there\n"""
+            """ preparing for her shift. "Them grandkids of yourn don't know how to act and\n"""
+            """ I guess you're the one that taught 'em" you say as you cross the hall to the\n"""
+            """ employee room. There's a nice birch log centerpiece on the table someone was\n"""
+            """ hot gluing burlap to. "One of you'uns gotta tote this whoopin, guess that's\n"""
+            """ gonna be you,too" """)
       print('\n\n\nPlease choose your weapon:\n\n')
       battle(weapon_choice(weapons),opponent)
       clear()
-      print('\n\n\n You hotglue your wounds closed and, slightly worse for the wear, head to your LeSabre..\n')
+      print('\n\n\n You hotglue your wounds closed and, slightly worse for the wear, head to your LeSabre..\n\n\n')
 class BennysBingo():
    name = "Benny's Bingo"
    def arrive():
       global knock,artifact
       if len(location_keys) == 1:
         weapons = {1:DustMop,2:Bottle}
-        opponent = Gerdie
         clear()
         location_keys.clear()
         if artifact == True:
+          tspace(2)
           print("""You walk into darkened Bingo Parlor, empty save the louring silhouette of Gerdie at the bar.\n"""
                 """Gerdie looks up, " """, Player.name ,"""you broke my door, I know it was you. You were looking for me."\n\n"""
                 """"I was looking for you, but I found something else.." you reply as you set the\n"""
                 """contents of your pocket onto the table in front of you. The old Venetian blinds slice\n"""
-                """dusty rays of light onto the table, where shines the stainless slide of a Colt Delta Elite.\n\n"""
+                """dusty rays of light onto the table, where glints the stainless slide of a Colt Delta Elite.\n\n"""
                 """"That's mine, you stole it!" Gerdie starts towards you, eyes never leaving the Colt.\n\n"""
                 """"That's right, I took it, and I'm here to take the rest" you say as you pick up the pistol.\n""")
           input("Press enter to continue")
           clear()
+          tspace(2)
           print("""Gerdie stops dead in her tracks. "Is this about the kids fighting again?" she asks.\n\n"""
                 """"It's not about what they were doing, it's about what they were saying.. you told them."\n\n"""
                 """"No I didn't, and even if I did, it's been fifty some years..."\n\n"""
@@ -272,20 +274,22 @@ class BennysBingo():
                 """\"No one is looking for you,""", Player.name, """, you're a good woman, you wouldn't do this."\n\n"""
                 """\"What is a good woman? Who gets to decide that? Does everyone get a vote? What about HIM? That man?\n"""
                 """  What would HE say? One resounding 'nay' on a mail-in ballot from an unmarked grave in the desert.\n"""
-                """  Or maybe there's a count. A tally of all the bad and good you've done in your life, the needle ever swinging\n"""
+                """  Or maybe there's a count.. A tally of all the bad and good you've done in your life, the needle ever swinging\n"""
                 """  back and forth across center for 89 years? Can you get too far into the red? Because one day\n"""
                 """  the needle stops swinging."\n\n"""
-                """Gerdie lookes on in silence, fixated on the 10 millimeter hole in front of her.\n\n"""
+                """Gerdie lookes on in silence, fixated on the 10 millimeter aperture in front of her.\n\n"""
                 """"I just hope I've swung the needle far enough to make up for this..."\n""")
           time.sleep(3)
           input("Press enter to continue")
           clear()
         else:
-           print("""Gerdie's car is out front as you wheel the LeSabre perfectly into the first spot past the handicap parking.\n"""
-                 """Stale smoke and the sounds of penny slots lend this place the only bit of charm it has. The place is empty,\n"""
-                 """except for the louring silhouette of Gerdie at the bar.\n\n"""
-                 """Them yougins of yourn fight as dirty as you do,' you say, stepping past an butt pocked dust mop.\n\n"""
-                 """And yours loses as bad as you do" she fires back as she circumnavigates the counter where her morning bottle sits"""
+           tspace(2)
+           print(""" Gerdie's car is out front as you wheel the LeSabre perfectly into the first spot past the handicap parking.\n"""
+                 """ Stale smoke and the sounds of penny slots lend this place the only bit of charm it has. The place is empty,\n"""
+                 """ except for the louring silhouette of Gerdie at the bar.\n\n"""
+                 """ "Them yougins of yourn fight as dirty as you do," you say, stepping past an butt pocked dust mop.\n\n"""
+                 """ "And yours loses as bad as you do" she fires back as she circumnavigates the counter where her"""
+                 """ hair-of-the-dog hooch sits sweating."""
                  )
            print('\n\n\nPlease choose your weapon:\n\n')
            while True:
@@ -296,14 +300,12 @@ class BennysBingo():
               weapon_choice = int(weapon_choice_raw)
             except ValueError:
               clear()
-              tspace()
-              tspace()
+              tspace(6)
               print("'",  weapon_choice_raw + "' is not a valid number, please type 1 or 2: \n\n")
               continue
             if weapon_choice not in range(1,3):
              clear()
-             tspace()
-             tspace()
+             tspace(6)
              print("'", weapon_choice_raw + "' is not a valid choice. Please type 1 or 2: \n\n")
              continue
             else:
@@ -311,14 +313,14 @@ class BennysBingo():
               break
            final_weapons = [weapons[weapon_choice],Artifact]
            clear()
-           tspace()
+           tspace(3)
            print("As you reach for a weapon Gerdie slides a loaded pistol from the jacket hanging by the door...\n\n")
            time.sleep(2)
            input('Press enter to continue..')
            clear()
            battle(final_weapons,Gerdie)
            clear()
-           tspace()
+           tspace(3)
            input("It's finally over, press Enter to go home...")
            clear()
 
@@ -327,7 +329,7 @@ class BennysBingo():
           clear()
           string_knock = "\n\n\nWHOOPS! The dang door broke! Well, since it's already open, there's no damage\nin taking a look around. There's no one here but there's a coat hanging on the coat rack.\nYou examine the coat's pockets and find a pistol.. \n\n"
           print(string_knock)
-          print("\n\n\n\n")
+          tspace(3)
           while True:
             takegun = input("Do you take the pistol? Y/N :")
             if takegun.lower() == "y":
@@ -347,8 +349,8 @@ class BennysBingo():
          elif knock == 4:
             clear()
             tprint("\n\nYou pull back up to the scene of your B&E. Gerdie is standing there with the police.\n"
-                   "'That's her!' she cries. You're fingerprints are everywhere.\n"
-                   "They draw their weapons, you close your eyes..")
+                   "'That's her!' she cries. Your fingerprints are everywhere.\n"
+                   "They draw their weapons. You close your eyes..")
             time.sleep(1.5)
             clear()
             death()
@@ -393,17 +395,15 @@ time.sleep(2.7)
 
 clear()
 
-intro = """\n
+print("""\n
 You wake with a start. It's your phone. A message from your grandson. 
 The other kids at school have been picking on him again.
 You sit up and kick around for your slippers.
-You know the bullies.. well.. specifically, you know their grandmas..
+You know the bullies.. well, specifically, you know their grandmas..
 You lost the North Idaho Kumite to Gerdie back in '43, with her two sisters
 placing 3rd and 4th. It seems like it's high time for a rematch.
-You know the places they frequent, and the LeSabre is gassed up.
-"""
-print(intro, "\n")
-
+You know the places they frequent, and the LeSabre is gassed up.\n
+""")
 
 while len(location_keys) > 0:
     for k in location_keys:
@@ -417,17 +417,19 @@ while len(location_keys) > 0:
         loc_choice = int(loc_choice_raw)
     except ValueError:
         clear()
-        print(intro , "'" , loc_choice_raw , "' is not a number.\n")
+        tspace(4)
+        print("'" , loc_choice_raw , "' is not a number.\n")
         continue
     if loc_choice not in location_keys:
         clear()
-        print(intro , "'" , loc_choice_raw , "' is not a valid choice.\n")
+        tspace(4)
+        print("'" , loc_choice_raw , "' is not a valid choice.\n")
         continue
     else:
         arena = location_dict[loc_choice]
         arena.arrive()
         continue
-
+tspace(3)
 print("""
                                 ,╓╖╖╔╔µ╗mææ@@@@@@@▄▄@@@@@@@@ææ╗╗╗╖╖╖,                               
                               ,@▒██████████████████████████████████▓▓▒W                             
@@ -453,5 +455,6 @@ print("""
                      `███████▒░░░                                     ░▒▓███████                    
                          ``╙╙"``                                       ````                         
 """)
-print("\n\nThe treeline on the far side of County Road 55 is baked in a cadmium glow as you pull\nwestward onto the blacktop. The gas gauge dipping towards 'E'")
+tprint("\n\nThe treeline on the far side of County Road 55 is baked in a cadmium glow as you pull\nthe LeSabre westward onto the blacktop. The gas gauge dipping towards 'E'")
+time.sleep(1)
 print('\n\nGame Over...')
